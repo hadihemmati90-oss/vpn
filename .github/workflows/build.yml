@@ -1,0 +1,27 @@
+name: Build My VPN App
+on: [push, workflow_dispatch] # هم با آپلود کد و هم به صورت دستی اجرا می‌شود
+
+jobs:
+  build:
+    runs-on: windows-latest # استفاده از سرور ویندوزی برای ساخت فایل exe
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Restore dependencies
+      run: dotnet restore XrayClient.csproj
+
+    - name: Publish EXE
+      # این دستور فایل را به صورت تک‌فایل و بدون نیاز به نصب (Portable) می‌سازد
+      run: dotnet publish XrayClient.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:PublishReadyToRun=true -o ./publish
+
+    - name: Upload Finished EXE
+      uses: actions/upload-artifact@v4
+      with:
+        name: My-VPN-Client
+        path: ./publish/*.exe
+        
