@@ -1,16 +1,23 @@
-<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <ApplicationManifest>app.manifest</ApplicationManifest>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="MaterialDesignThemes" Version="5.1.0" />
-    <EmbeddedResource Include="Resources\xray.exe" />
-    <EmbeddedResource Include="Resources\wintun.dll" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\wintun.dll" />
+    <EmbeddedResource Include="Resources\xray.exe" />
+  </ItemGroup>
+
 </Project>
